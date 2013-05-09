@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 public class UsefulAppsActivity extends AbstractActivity {
 
     private LinearLayout parentLayout;
@@ -27,17 +25,6 @@ public class UsefulAppsActivity extends AbstractActivity {
         setTitle(res.getString(R.string.helpers));
         parentLayout = (LinearLayout) findViewById(R.id.parent);
 
-        final Locale loc = Locale.getDefault();
-        final String language = loc.getLanguage();
-
-        final String tutorialUrl;
-        if ("de".equalsIgnoreCase(language)) {
-            tutorialUrl = "gnu.android.app.cgeomanual.de";
-        }
-        else {
-            tutorialUrl = "gnu.android.app.cgeomanual.en";
-        }
-        addApp(R.string.helper_manual_title, R.string.helper_manual_description, R.drawable.helper_manual, tutorialUrl);
         addApp(R.string.helper_calendar_title, R.string.helper_calendar_description, R.drawable.cgeo, "cgeo.calendar");
         addApp(R.string.helper_locus_title, R.string.helper_locus_description, R.drawable.helper_locus, "menion.android.locus");
         addApp(R.string.helper_gpsstatus_title, R.string.helper_gpsstatus_description, R.drawable.helper_gpsstatus, "com.eclipsim.gpsstatus2");

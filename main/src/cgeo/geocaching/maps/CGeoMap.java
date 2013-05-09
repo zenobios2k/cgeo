@@ -1578,12 +1578,6 @@ public class CGeoMap extends AbstractMap implements OnMapDragListener, ViewFacto
         ActivityMixin.goHome(activity);
     }
 
-    // open manual entry
-    @Override
-    public void goManual(View view) {
-        ActivityMixin.goManual(activity, "c:geo-live-map");
-    }
-
     @Override
     public View makeView() {
         ImageView imageView = new ImageView(activity);

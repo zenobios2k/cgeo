@@ -1,7 +1,6 @@
 package cgeo.geocaching;
 
 import cgeo.geocaching.activity.AbstractActivity;
-import cgeo.geocaching.activity.ActivityMixin;
 import cgeo.geocaching.connector.gc.Login;
 import cgeo.geocaching.enumerations.CacheType;
 import cgeo.geocaching.enumerations.StatusCode;
@@ -35,7 +34,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -169,10 +167,6 @@ public class cgeo extends AbstractActivity {
         }
     };
 
-    public cgeo() {
-        super("c:geo-main-screen");
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,27 +182,6 @@ public class cgeo extends AbstractActivity {
 
         version = Version.getVersionCode(this);
         Log.i("Starting " + getPackageName() + ' ' + version + " a.k.a " + Version.getVersionName(this));
-
-        try {
-            if (!Settings.isHelpShown()) {
-                final RelativeLayout helper = (RelativeLayout) findViewById(R.id.helper);
-                if (helper != null) {
-                    helper.setVisibility(View.VISIBLE);
-                    helper.setClickable(true);
-                    helper.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            ActivityMixin.goManual(cgeo.this, "c:geo-intro");
-                            view.setVisibility(View.GONE);
-                        }
-                    });
-                    Settings.setHelpShown();
-                }
-            }
-        } catch (Exception e) {
-            // nothing
-        }
 
         init();
     }

@@ -268,10 +268,6 @@ public class VisitCacheActivity extends AbstractLoggingActivity implements DateD
         }
     };
 
-    public VisitCacheActivity() {
-        super("c:geo-log");
-    }
-
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

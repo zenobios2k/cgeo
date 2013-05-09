@@ -44,10 +44,6 @@ public class ImageSelectActivity extends AbstractActivity {
     private String imageDescription;
     private Uri imageUri;
 
-    public ImageSelectActivity() {
-        super("c:geo-selectimage");
-    }
-
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
