@@ -2,7 +2,7 @@
 <resources>
   <!-- changelog for the release branch -->
   <string name="changelog_release" translatable="false">\n
-    <b>2015.03.06-legacy:</b>\n
+    <b>2015.03.08-legacy:</b>\n
     · Fix: Spoiler photo from hint not always downloaded\n
     \n
     <b>2014.09.02-legacy:</b>\n
