@@ -64,7 +64,7 @@ public final class GCConstants {
     public final static Pattern PATTERN_WATCHLIST = Pattern.compile(Pattern.quote("watchlist.aspx") + ".{1,50}" + Pattern.quote("action=rem"));
 
     // Info box top-right
-    public static final Pattern PATTERN_LOGIN_NAME = Pattern.compile("\"SignedInProfileLink\">(.*?)</a>");
+    public static final Pattern PATTERN_LOGIN_NAME = Pattern.compile("class=\"li-user-info\"[^>]*>.*?<span>(.*?)</span>", Pattern.DOTALL);
     public static final Pattern PATTERN_MEMBERSHIP = Pattern.compile("<dl class=\"membership-details\">.*?<dt>Membership</dt>.*?<dd>\\s*(\\p{Alpha}+)\\s*</dd>", Pattern.DOTALL);
     public static final String MEMBER_STATUS_PREMIUM = "Premium";
     public static final String MEMBER_STATUS_CHARTER = "Charter";
