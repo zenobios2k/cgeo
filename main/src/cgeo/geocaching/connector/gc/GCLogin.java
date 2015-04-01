@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 public class GCLogin extends AbstractLogin {
 
@@ -103,6 +104,7 @@ public class GCLogin extends AbstractLogin {
             if (switchToEnglish(loginData) && retry) {
                 return login(false);
             }
+            refreshMemberStatus();
             return StatusCode.NO_ERROR; // logged in
         }
 
@@ -141,6 +143,7 @@ public class GCLogin extends AbstractLogin {
             }
             Settings.setCookieStore(Cookies.dumpCookieStore());
 
+            refreshMemberStatus();
             return StatusCode.NO_ERROR; // logged in
         }
 
@@ -206,10 +209,6 @@ public class GCLogin extends AbstractLogin {
                 Log.e("getLoginStatus: bad cache count", e);
             }
             setActualCachesFound(cachesCount);
-            Settings.setMemberStatus(TextUtils.getMatch(page, GCConstants.PATTERN_MEMBER_STATUS, true, null));
-            if ( page.contains(GCConstants.MEMBER_STATUS_RENEW) ) {
-                Settings.setMemberStatus(GCConstants.MEMBER_STATUS_PM);
-            }
             return true;
         }
 
@@ -256,15 +255,10 @@ public class GCLogin extends AbstractLogin {
         return false;
     }
 
-    public BitmapDrawable downloadAvatarAndGetMemberStatus() {
+    public BitmapDrawable downloadAvatar() {
         try {
             final String responseData = StringUtils.defaultString(Network.getResponseData(Network.getRequest("http://www.geocaching.com/my/")));
             final String profile = TextUtils.replaceWhitespace(responseData);
-
-            Settings.setMemberStatus(TextUtils.getMatch(profile, GCConstants.PATTERN_MEMBER_STATUS, true, null));
-            if (profile.contains(GCConstants.MEMBER_STATUS_RENEW)) {
-                Settings.setMemberStatus(GCConstants.MEMBER_STATUS_PM);
-            }
 
             setActualCachesFound(Integer.parseInt(TextUtils.getMatch(profile, GCConstants.PATTERN_CACHES_FOUND, true, "-1").replaceAll("[,.]", "")));
 
@@ -279,6 +273,19 @@ public class GCLogin extends AbstractLogin {
             Log.w("Error when retrieving user avatar", e);
         }
         return null;
+    }
+
+
+    private static void refreshMemberStatus() {
+
+        final String page = StringUtils.defaultString(Network.getResponseData(Network.getRequest("https://www.geocaching.com/account/settings/membership")));
+        final Matcher match = GCConstants.PATTERN_MEMBERSHIP.matcher(page);
+        if (match.find()) {
+            Log.d("Setting member status to " + match.group(1));
+            Settings.setMemberStatus(match.group(1));
+        } else {
+            Log.w("Cannot determine member status");
+        }
     }
 
     /**

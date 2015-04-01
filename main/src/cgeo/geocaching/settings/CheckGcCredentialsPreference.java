@@ -30,11 +30,12 @@ public class CheckGcCredentialsPreference extends AbstractCheckCredentialsPrefer
     @Override
     protected Object login() {
         final StatusCode loginResult = GCLogin.getInstance().login();
-        Object payload = loginResult;
-        if (loginResult == StatusCode.NO_ERROR) {
-            GCLogin.detectGcCustomDate();
-            payload = GCLogin.getInstance().downloadAvatarAndGetMemberStatus();
+        switch (loginResult) {
+            case NO_ERROR:
+                GCLogin.detectGcCustomDate();
+                return GCLogin.getInstance().downloadAvatar();
+            default:
+                return loginResult;
         }
-        return payload;
     }
 }
