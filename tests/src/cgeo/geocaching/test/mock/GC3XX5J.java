@@ -55,7 +55,7 @@ public class GC3XX5J extends MockedCache {
 
     @Override
     public boolean isArchived() {
-        return false;
+        return true;
     }
 
     @Override
