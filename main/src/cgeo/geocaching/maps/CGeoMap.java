@@ -43,11 +43,6 @@ import cgeo.geocaching.utils.LeastRecentlyUsedSet;
 import cgeo.geocaching.utils.Log;
 import cgeo.geocaching.utils.MapUtils;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -62,6 +57,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -90,6 +87,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import rx.Subscription;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -244,8 +243,8 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
             titleview.setText(title);
 
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            setTitleIceCreamSandwich(title);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setTitleM(title);
         }
     }
 
@@ -284,8 +283,8 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         if (titleView != null) {
             titleView.setText(titleView.getText().toString() + ' ' + subtitle);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            setSubtitleIceCreamSandwich(subtitle);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setSubtitleM(subtitle);
         }
     }
 
@@ -316,7 +315,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         return subtitle.toString();
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @TargetApi(Build.VERSION_CODES.M)
     @NonNull
     private ActionBar getActionBar() {
         final ActionBar actionBar = activity.getActionBar();
@@ -324,13 +323,13 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         return actionBar;
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void setTitleIceCreamSandwich(final String title) {
+    @TargetApi(Build.VERSION_CODES.M)
+    private void setTitleM(final String title) {
         getActionBar().setTitle(title);
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void setSubtitleIceCreamSandwich(final String subtitle) {
+    @TargetApi(Build.VERSION_CODES.M)
+    private void setSubtitleM(final String subtitle) {
         getActionBar().setSubtitle(subtitle);
     }
 
@@ -491,7 +490,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
 
         // set layout
         ActivityMixin.setTheme(activity);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
         activity.setContentView(mapProvider.getMapLayoutId());
